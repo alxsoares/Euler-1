@@ -11,7 +11,17 @@ int gridStep(int x, int y, int endx, int endy){
 
 int main(){
   unsigned long int total = 0;
-	cout << gridStep(0,0,20,20) << endl;
+  unsigned long int totals[11];
+  for (int i = 0; i <= 10; i++){
+    cout << gridStep(10+i,10,20,20)-gridStep(10,10+i,20,20) << endl;
+    totals[i] = gridStep(10+i, 10, 20, 20);
+  }
+
+  total += gridStep(0,0,10,10)*totals[0];
+  for (int i = 1; i <= 10; i++){
+    total += ((gridStep(0,0,10,10+i)-(gridStep(0,0,10,10+i-1)))*totals[i])*2;
+  }
+  cout << total << endl;
   return 0;
 }
 
