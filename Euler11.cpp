@@ -1,10 +1,10 @@
 #include <iostream>
 using namespace std;
 
-int sumRow(int x, int y);
-int sumCol(int x, int y);
-int sumDia(int x, int y);
-int sumRDia(int x, int y);
+long int sumRow(int x, int y);
+long int sumCol(int x, int y);
+long int sumDia(int x, int y);
+long int sumRDia(int x, int y);
 
 int grid[20][20] =
 {{8, 2, 22, 97, 38, 15, 0, 40, 0, 75, 4, 5, 7, 78, 52, 12, 50, 77, 91, 8},
@@ -29,20 +29,26 @@ int grid[20][20] =
 {1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48}};
 
 int main(){
-  int cRow, cCol, cDia, cRDia;
-  int max = 0;
-  
+  long int cRow, cCol, cDia, cRDia;
+  long int max = 0;
+
+  cout << grid[12][6] << endl;
+  cout << grid[13][5] << endl;
+  cout << grid[14][4] << endl;
+  cout << grid[15][3] << endl;
+  cout << sumRDia(12, 6) << endl;
+
   for (int i = 0; i < 20; i++){
     for (int y = 0; y < 20; y++){
-      cRow = sumRow(y,i);
-      cCol = sumCol(y,i);
-      cDia = sumDia(y,i);
-      cRDia = sumRDia(y,i);
+      cRow = sumRow(i,y);
+      cCol = sumCol(i,y);
+      cDia = sumDia(i,y);
+      cRDia = sumRDia(i,y);
       if (cRow > max) max = cRow;
       if (cCol > max) max = cCol;
       if (cDia > max) max = cDia;
       if (cRDia > max) max = cRDia;
-      cout << "Row:" << i << " Col:" << y << " Max:" << max << endl;
+      //cout << "Row:" << i << " Col:" << y << " Max:" << max << endl;
     }
   }
 
@@ -53,22 +59,22 @@ int main(){
 
 //All sum functions return either the sum from the starting grid position, or -1 for failure
 
-int sumRow(int x, int y){
+long int sumRow(int x, int y){
   if ( (x+3) > 19 ) return -1;
   return grid[x][y]*grid[x+1][y]*grid[x+2][y]*grid[x+3][y];
 }
 
-int sumCol(int x, int y){
+long int sumCol(int x, int y){
   if ( (y+3) > 19 ) return -1;
   return grid[x][y]*grid[x][y+1]*grid[x][y+2]*grid[x][y+3];
 }
 
-int sumDia(int x, int y){
+long int sumDia(int x, int y){
   if ( ( (x+3) > 19 ) || ( (y+3) > 19 ) ) return -1;
   return grid[x][y]*grid[x+1][y+1]*grid[x+2][y+2]*grid[x+3][y+3];
 }
 
-int sumRDia(int x, int y){
-  if ( ( (x-3) < 0 ) || ( (y-3) < 0 ) ) return -1;
-  return grid[x][y]*grid[x-1][y-1]*grid[x-2][y-2]*grid[x-3][y-3];
+long int sumRDia(int x, int y){
+  if ( ( (x+3) > 19 ) || ( (y-3) < 0 ) ) return -1;
+  return grid[x][y]*grid[x+1][y-1]*grid[x+2][y-2]*grid[x+3][y-3];
 }
